@@ -4,8 +4,10 @@ import config from './config/config.js';
 import expressConfig from './frameworks/webserver/express.js';
 import mongoConnection from './frameworks/database/mongoDB/connection.js';
 import routes from './frameworks/webserver/routes/index.js';
+import errorHandlingMiddleware from './frameworks/webserver/middlewares/errorHandlingMiddleware.js';
 
 const app = express();
+
 expressConfig(app, express);
 
 // DB configuration and connection create
@@ -16,5 +18,7 @@ mongoConnection(mongoose, config, {
 
 // routes for each endpoint
 routes(app, express);
+
+app.use(errorHandlingMiddleware);
 
 export default app;
